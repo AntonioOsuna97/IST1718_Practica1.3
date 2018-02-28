@@ -33,29 +33,20 @@ public class Servlet2 extends HttpServlet {
 	
 		//Inicio de sesion
 		HttpSession sesion = request.getSession(true);
-		response.setContentType("text/html");
-		//Variable html de tipo printwriter que nos permitirá escribir en el html.
-		PrintWriter html = response.getWriter();
 		
-		sesion.setAttribute("name", request.getAttribute("name"));
+		String nombre = request.getParameter("name");
+		sesion.setAttribute("Nombre", nombre);
+		
+		String apellido = request.getParameter("surname");
+		sesion.setAttribute("Apellido", apellido);
+		
+		String email = request.getParameter("email");
+		sesion.setAttribute("Email", email);
 	
-
-					
-				
-				Date date = (Date)sesion.getAttribute("date");
-				if(date != null) {
-				html.print("Último acceso de la sesión: " + date + "<br>");
-				}
-				else {
-				html.print("Este es el primer acceso de la sesión "+ (String)sesion.getAttribute("name") +" <br>");
-				}
-				date = new Date();
-				sesion.setAttribute("date", date);
-				//Establece el tiempo de la cookie de sesion a 5 segundos.
-				//Esto hace que al exceder el tiempo de la cookie, el servidor te proporcione un SessionID nuevo.
-				sesion.setMaxInactiveInterval(5);
-				html.print("Fecha actual: " + date);
-				html.print("</strong>");
+		String url="/WEB-INF/sesion.jsp";
+		getServletContext().getRequestDispatcher(url).forward(request, response);
+		
+	
 				
 				
 	}
