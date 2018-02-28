@@ -11,6 +11,10 @@
 <h2>Bienvenido </h2>
 <h3>Estos son sus datos: </h3>
 
+<p>Su nombre es: ${sesion.Nombre}</p>
+<p>Su apellido es: ${sesion.Apellido}</p>
+<p>Su email es: ${sesion.Email}</p>
+
 
 </body>
 </html>
