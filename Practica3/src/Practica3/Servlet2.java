@@ -1,8 +1,6 @@
 package Practica3;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +15,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/Servlet2")
 public class Servlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	String idSesion="";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -33,20 +32,40 @@ public class Servlet2 extends HttpServlet {
 	
 		//Inicio de sesion
 		HttpSession sesion = request.getSession(true);
+		String url="";
+		if(idSesion.equals("")){
+		idSesion =sesion.getId();
+		}
 		
 		String nombre = request.getParameter("name");
 		sesion.setAttribute("Nombre", nombre);
+		//Lo añadimos a la petición. Pues para la sesion deberemos 
+		//utilizar sessionscope que no lo ha explicado
+		request.setAttribute("Nombre", nombre);
 		
 		String apellido = request.getParameter("surname");
 		sesion.setAttribute("Apellido", apellido);
+		//Lo añadimos a la petición. Pues para la sesion deberemos 
+		//utilizar sessionscope que no lo ha explicado
+		request.setAttribute("Apellido", apellido);
 		
 		String email = request.getParameter("email");
 		sesion.setAttribute("Email", email);
+		//Lo añadimos a la petición. Pues para la sesion deberemos 
+		//utilizar sessionscope que no lo ha explicado
+		request.setAttribute("Email", email);
 	
-		String url="/WEB-INF/sesion.jsp";
+		sesion.setMaxInactiveInterval(5);
+
+		if(idSesion.equals(sesion.getId())) {
+		url="/WEB-INF/sesion.jsp";	
+		}else {
+			url="/index.html";
+			sesion.invalidate();
+			idSesion="";
+		}
 		getServletContext().getRequestDispatcher(url).forward(request, response);
-		
-	
+
 				
 				
 	}
