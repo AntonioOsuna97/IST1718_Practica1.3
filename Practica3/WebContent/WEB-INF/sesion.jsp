@@ -16,6 +16,5 @@
 <p>Su apellido es: ${Apellido}</p>
 <p>Su email es: ${Email}</p>
 
-
 </body>
 </html>
